@@ -1,5 +1,5 @@
 
-const orderHistory = async function(event){
+const fetchOrderHistory = async function(event){
 
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username')
@@ -10,47 +10,65 @@ const orderHistory = async function(event){
         'Content-Type': 'application/json'
       }
     });
-    const content = await orderHistoryResponse.json();
+    const orderHistory = await orderHistoryResponse.json();
+
+    if(orderHistory.hasOwnProperty("errors"))
+        alert(orderHistory["errors"])
+    else
+        createOrderHistoryTable(orderHistory)
+
+}
+
+const createOrderHistoryTable = (orderHistory) =>{
 
     const historyTable = document.getElementsByClassName("main-table")[0]
 
-    for(orderRecord = 0; orderRecord < content.length; orderRecord++){
+    for(orderRecord = 0; orderRecord < orderHistory.length; orderRecord++){
 
         var tr = document.createElement('tr');
         var esopType = "-"
-        if(content[orderRecord].hasOwnProperty("esopType")){
-            esopType = content[orderRecord]["esopType"]
+        if(orderHistory[orderRecord].hasOwnProperty("esopType")){
+            esopType = orderHistory[orderRecord]["esopType"]
         }
 
-        var filledOrder = "-"
-        if(content[orderRecord]["filled"].length > 0){
-            filledOrder= `<table class="sub-table">`
-            for(i = 0; i <content[orderRecord]["filled"].length; i++ ){
-                filledOrder += `<tr>
-                    <td>${content[orderRecord]["filled"][i]["quantity"]}</td>
-                    <td>${content[orderRecord]["filled"][i]["price"]}</td>
-                    <td>${content[orderRecord]["filled"][i]["esopType"]}</td>
-                </tr>`
-            } 
-            filledOrder += "</table>"
-        }
+        const filledOrderTable = createFilledOrderTable(orderHistory)
         
         let tableString = `
-            <td>${content[orderRecord]["orderId"]}</td>
-            <td>${content[orderRecord]["price"]}</td>
-            <td>${content[orderRecord]["quantity"]}</td>
-            <td>${content[orderRecord]["type"]}</td>
+            <td>${orderHistory[orderRecord]["orderId"]}</td>
+            <td>${orderHistory[orderRecord]["quantity"]}</td>
+            <td>${orderHistory[orderRecord]["price"]}</td>
+            <td>${orderHistory[orderRecord]["type"]}</td>
             <td>${esopType}</td>
-            <td>${content[orderRecord]["status"]}</td>
-            <td>${filledOrder}</td>`
+            <td>${orderHistory[orderRecord]["status"]}</td>
+            <td>${filledOrderTable}</td>`
+
         tr.innerHTML = tableString    
-    
         historyTable.appendChild(tr)
 
-        console.log(tableString)
-
     }
-  
-    console.log(content);
-
 }
+
+const createFilledOrderTable = (orderHistory) => {
+
+    var filledOrderTable = "-"
+    if(orderHistory[orderRecord].hasOwnProperty("filled")){
+
+        const ordersFilled = orderHistory[orderRecord]["filled"]
+        filledOrderTable= `<table class="sub-table">`
+
+        for(i = 0; i <orderHistory[orderRecord]["filled"].length; i++ ){
+            filledOrderTable += `<tr>
+                <td>${ordersFilled[i]["quantity"]}</td>
+                <td>${ordersFilled[i]["price"]}</td>
+                <td>${ordersFilled[i]["esopType"]}</td>
+            </tr>`
+        } 
+
+        filledOrderTable += "</table>"
+    }
+
+    return filledOrderTable
+
+}    
+
+

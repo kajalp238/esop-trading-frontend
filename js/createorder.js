@@ -23,10 +23,15 @@ form.addEventListener("submit", async function(event) {
     
     const content = await orderResponse.json();
 
-    if(content.hasOwnProperty("errors"))
-        alert(content["errors"])
-    else
-        alert("Order placed Successfully!!")
+    if(content.hasOwnProperty("orderId"))
+        alert("Order placed Successfully!!")  
+    else{
+        if(content.hasOwnProperty("errors"))
+            alert(content["errors"].join("\n"))
+        else    
+            alert(content)
+    }
+        
 	
 });
 
