@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Order</title>
+    <link rel="stylesheet" href="./css/createorder.css">
+</head>
+<body>
+<section class="header">
+    <h1>Welcome to ESOP trading</h1>
+    <p><u>The future of ESOP is here!</u></p>
+</section>
+
+<section title="form-section">
+    <form id="order-form">
+        <h2 class="form-title">Place Order!</h2>
+        <div class="form-outer">
+            <table>
+                <tr>
+                    <td><label for="type">Order Type</label></td>
+                    <td><select class="type-button" id="type" name="type" onchange="typeCheck(this)">
+                        <option value="BUY">BUY</option>
+                        <option value="SELL">SELL</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="quantity">Quantity</label></td>
+                    <td><input type="number" id="quantity" name="quantity" placeholder="10"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="price">Price</label></td>
+                    <td><input type="number" id="price" name="price" placeholder="10"></td>
+                </tr>
+
+                <tr id="esopTypeCheck" style="visibility: hidden;">
+                    <td><label  for="esopType">Esop Type</label></td>
+                    <td><select class="type-button" id="esopType" name="esopType">
+                        <option value="PERFORMANCE">PERFORMANCE</option>
+                        <option value="NON_PERFORMANCE" selected>NON_PERFORMANCE</option>
+                    </select></td>
+                </tr>
+
+            </table>
+
+            <div>
+                <input class="submit-button" type="submit" value="Submit">
+            </div>
+        </div>
+    </form>
+</section>
+<script src="js/createorder.js"></script>
+</body>
+</html>
