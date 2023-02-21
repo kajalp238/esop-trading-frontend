@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History</title>
+    <link rel="stylesheet" href="css/orderhistory.css">
+</head>
+<body onload="orderHistory()">
+<section class="header">
+    <h1>Welcome to ESOP Trading</h1>
+    <p><u>The future of ESOP is here!</u></p>
+</section>
+
+<section class="history-body">
+    <h2>Order History</h2>
+    <table class="main-table">
+        <tr>
+            <th>Order ID</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Type</th>
+            <th>Esop Type</th>
+            <th>Status</th>
+            <th>Filled <br>
+                <table class="sub-table">
+                    <tr>
+                        <td>quantity</td>
+                        <td>price</td>
+                        <td>Esop Type</td>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+    </table>
+
+</section>
+
+<script src="js/orderHistory.js"></script>
+
+</body>
+</html>
