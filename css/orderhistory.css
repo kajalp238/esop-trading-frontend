@@ -55,6 +55,11 @@ table, th, td{
     padding: 10px 0;
 }
 
+.main-table td:hover{
+    font-weight: bold;
+    cursor: default;
+}
+
 .sub-table td{
     width: 33%;
 }
